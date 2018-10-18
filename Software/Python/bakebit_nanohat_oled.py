@@ -140,12 +140,18 @@ def draw_page():
             dotTop=dotTop+dotWidth+dotPadding
 
     if page_index==0:
-        text = time.strftime("%A")
-        draw.text((2,2),text,font=font14,fill=255)
-        text = time.strftime("%e %b %Y")
-        draw.text((2,18),text,font=font14,fill=255)
-        text = time.strftime("%X")
-        draw.text((2,40),text,font=fontb24,fill=255)
+        try: # if file is present, print it on screen
+            with f as open(u'/tmp/foxhunt.dat','r'): 
+               for l in f:
+                 text = l
+                 draw.text((2,18),text,font=font14,fill=255)
+        except: # else, just output time
+            text = time.strftime("%A")
+            draw.text((2,2),text,font=font14,fill=255)
+            text = time.strftime("%e %b %Y")
+            draw.text((2,18),text,font=font14,fill=255)
+            text = time.strftime("%X")
+            draw.text((2,40),text,font=fontb24,fill=255)
     elif page_index==1:
         # Draw some shapes.
         # First define some constants to allow easy resizing of shapes.
